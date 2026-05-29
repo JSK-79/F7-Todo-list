@@ -9,7 +9,10 @@ let app = new Framework7({
     el: '#app',
     name: 'MaToDo',
     theme: 'auto',
+    routes: routes,
 });
+
+var mainView = app.views.create(".view-main", { url: "/" });
 
 let taches = [
  { id: 1, texte: "Ranger mes fournitures", fait: false },
@@ -38,6 +41,9 @@ function ligneTache(t) {
 function afficher() {
     $$('.liste-taches').html(taches.map(ligneTache).join(""));
 }
+$$(document).on("page:init", '.page[data-name="taches"]', function () {
+  afficher(); // premier affichage
+});
 
 function ajouterTache(texte) { 
 if (texte.trim() === '') return; 
